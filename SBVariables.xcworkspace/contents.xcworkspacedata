@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:../SBUnits">
+   </FileRef>
+   <FileRef
+      location = "group:../SBCommons">
+   </FileRef>
+   <FileRef
+      location = "group:../SBBasics">
+   </FileRef>
+   <FileRef
+      location = "group:SBVariables.playground">
+   </FileRef>
+   <FileRef
+      location = "group:">
+   </FileRef>
+</Workspace>
