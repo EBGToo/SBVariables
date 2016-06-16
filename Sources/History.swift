@@ -16,7 +16,7 @@ public class History<Value> {
   }
 
   // pairs of (object, time)
-  public func extend (time: Quantity<Time>, value:Value) {
+  public func extend (_ time: Quantity<Time>, value:Value) {
     buffer.put((time, value))
   }
   

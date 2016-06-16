@@ -9,7 +9,7 @@ import SBBasics
 
 ///
 public class Domain<Value> {
-  public func contains (value:Value) -> Bool {
+  public func contains (_ value:Value) -> Bool {
     return true
   }
 }
@@ -25,7 +25,7 @@ public final class AlwaysDomain<Value> : Domain<Value> {
   let result : Bool
 
   /// Ignores value and returns `result`
-  public override func contains (value: Value) -> Bool {
+  public override func contains (_ value: Value) -> Bool {
     return result
   }
 
@@ -52,7 +52,7 @@ public final class SingletonDomain<Value> : Domain<Value> {
   /// The comparison predicate
   let test : (Value, Value) -> Bool
   
-  public override func contains (value: Value) -> Bool {
+  public override func contains (_ value: Value) -> Bool {
     return test (value, self.value)
   }
   
@@ -83,7 +83,7 @@ public final class EnumeratedDomain<Value> : Domain<Value> {
   /// the comparison predicate
   let test : (Value, Value) -> Bool
   
-  public override func contains(value: Value) -> Bool {
+  public override func contains(_ value: Value) -> Bool {
     return values.contains { test(value, $0) }
   }
   
@@ -110,12 +110,16 @@ public final class SetDomain<Value:Hashable> : Domain<Value> {
   let set : Set<Value>
 
   ///
-  public override func contains(value: Value) -> Bool {
+  public override func contains(_ value: Value) -> Bool {
     return set.contains(value);
   }
   
   public init (set: Set<Value>) {
     self.set = set
+  }
+  
+  public convenience init (values: Value...) {
+    self.init (set: Set<Value>(values))
   }
 }
 
@@ -129,7 +133,7 @@ public final class RangeDomain<Value:Comparable> : Domain<Value> {
   /// The `Range` of the domain
   let range : Range<Value>
   
-  public override func contains(value: Value) -> Bool {
+  public override func contains(_ value: Value) -> Bool {
     return range.contains (value)
   }
 
@@ -146,7 +150,7 @@ public final class RangeDomain<Value:Comparable> : Domain<Value> {
 public final class ComplementDomain<Value> : Domain<Value> {
   let domain : Domain<Value>
   
-  public override func contains(value: Value) -> Bool {
+  public override func contains(_ value: Value) -> Bool {
     return !domain.contains(value)
   }
   
@@ -161,8 +165,8 @@ public final class ComplementDomain<Value> : Domain<Value> {
 /// DomainLogic is an Enumeration with .And and .Or and is used with a Compound Domain
 ///
 public enum DomainLogic {
-  case And
-  case Or
+  case and
+  case or
 }
 
 /// 
@@ -182,10 +186,10 @@ public final class CompoundDomain<Value> : Domain<Value> {
     self.domains = domains
   }
   
-  public override func contains(value: Value) -> Bool {
+  public override func contains(_ value: Value) -> Bool {
     switch logic {
-      case .And: return domains.all { $0.contains (value) }
-      case .Or : return domains.any { $0.contains (value) }
+      case .and: return domains.all { $0.contains (value) }
+      case .or : return domains.any { $0.contains (value) }
     }
   }
 }

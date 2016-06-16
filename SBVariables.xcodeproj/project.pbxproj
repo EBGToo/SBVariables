@@ -136,7 +136,8 @@
 				3C2895DD1BFFB9E400C85BD2 /* VariableTest.swift */,
 				3C28958B1BFFB85800C85BD2 /* Support */,
 			);
-			path = Tests;
+			name = Tests;
+			path = Tests/SBVariables;
 			sourceTree = "<group>";
 		};
 		3C2895891BFFB81400C85BD2 /* Frameworks */ = {
@@ -235,14 +236,16 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Opus Logica Inc.";
 				TargetAttributes = {
 					3C2895681BFFB7BF00C85BD2 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0800;
 					};
 					3C2895721BFFB7BF00C85BD2 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -423,6 +426,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -442,6 +446,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.opuslogica.SBVariables;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -455,6 +461,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.opuslogica.SBVariablesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -467,6 +474,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.opuslogica.SBVariablesTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

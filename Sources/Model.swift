@@ -11,14 +11,14 @@ public protocol Model {
   associatedtype Input
   associatedtype Output
 
-  func applyForward (input:Input) -> Output
+  func applyForward (_ input:Input) -> Output
 
   // The inverse is often ill-posed and thus non-existent.  This return will default to 'nil'
-  func applyReverse (output:Output) -> Input?
+  func applyReverse (_ output:Output) -> Input?
 }
 
 extension Model {
-  public func applyReverse (output:Output) -> Input? {
+  public func applyReverse (_ output:Output) -> Input? {
     return nil
   }
 }
@@ -26,7 +26,7 @@ extension Model {
 public final class ConstantModel<Input, Output> : Model {
   let output : Output
   
-  public func applyForward (input:Input) -> Output {
+  public func applyForward (_ input:Input) -> Output {
     return output
   }
 
@@ -35,16 +35,16 @@ public final class ConstantModel<Input, Output> : Model {
   }
 }
 
-public final class LinearModel<D:Dimension> : Model {
+public final class LinearModel<D:SBUnits.Dimension> : Model {
   let scale  : Double
   let offset : Quantity<D>
   
-  public func applyForward (input:Quantity<D>) -> Quantity<D> {
+  public func applyForward (_ input:Quantity<D>) -> Quantity<D> {
     // convert units
     return Quantity(value: scale * input.value + offset.value, unit: offset.unit)
   }
   
-  public func applyReverse(output: Quantity<D>) -> Quantity<D>? {
+  public func applyReverse(_ output: Quantity<D>) -> Quantity<D>? {
     guard 0.0 == scale else { return nil }
     
     return Quantity(value: (output.value - offset.value) / scale, unit: offset.unit)

@@ -46,22 +46,22 @@ public class Namespace<Object : Nameable> : Named {
   /// The mapping from Name -> Value 
   var dictionary = Dictionary<String,Object>()
   
-  func hasObjectByName (obj: Object) -> Bool {
+  func hasObjectByName (_ obj: Object) -> Bool {
     return nil != dictionary[obj.name]
   }
 
   /// Remove `obj` from `self` - based on `obj.name`
-  func remObjectByName (obj: Object) {
-    dictionary.removeValueForKey (obj.name)
+  func remObjectByName (_ obj: Object) {
+    dictionary.removeValue (forKey: obj.name)
   }
 
   /// Add `obj` to `self` - overwritting any other object with  `obj.name`
-  func addObjectByName (obj: Object) {
+  func addObjectByName (_ obj: Object) {
     dictionary[obj.name] = obj
   }
 
   /// If one exists, return the object in `self` with `name`
-  func getObjectByName (name: String) -> Object? {
+  func getObjectByName (_ name: String) -> Object? {
     return dictionary[name]
   }
   
@@ -72,7 +72,7 @@ public class Namespace<Object : Nameable> : Named {
   ///
   /// - returns: The fullname
   ///
-  func fullname (obj: Nameable) -> String {
+  func fullname (_ obj: Nameable) -> String {
     return (parent?.fullname(self) ?? name) + separator + obj.name
   }
   

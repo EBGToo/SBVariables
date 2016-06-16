@@ -118,5 +118,6 @@ pod 'SBVariables', '~> 0.1'
 $ git clone https://github.com/EBGToo/SBVariables.git SBVariables
 ```
 
-You'll also need the SBUnits and SBBasics frameworks.  With those, add the `SBVariables` Xcode Project
-to your Xcode Workspace.
+You'll also need the [SBCommons](https://github.com/EBGToo/SBCommons), 
+[SBUnits](https://github.com/EBGToo/SBUnits) and 
+[SBBasics](https://github.com/EBGToo/SBBasics) frameworks.  With those, add the SBVariables Xcode Project to your Xcode Workspace.

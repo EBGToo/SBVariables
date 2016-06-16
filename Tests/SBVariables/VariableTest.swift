@@ -94,7 +94,7 @@ class VariableTest: XCTestCase {
   }
 
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

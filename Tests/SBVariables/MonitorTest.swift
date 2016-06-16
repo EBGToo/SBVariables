@@ -11,7 +11,7 @@ import XCTest
 class OnChangeReportSeriesMonitor<Value:Equatable> : OnChangeMonitor<Value> {
   var values = Array<Value>()
   
-  override func report(value: Value) {
+  override func report(_ value: Value) {
     values.append(value)
   }
   
@@ -31,10 +31,10 @@ class MonitorTest: XCTestCase {
     super.tearDown()
   }
   
-  func assertMonitorReportTrue<Value> (monitor: Monitor<Value>, values: Value...) {
+  func assertMonitorReportTrue<Value> (_ monitor: Monitor<Value>, values: Value...) {
     values.forEach { XCTAssertTrue (monitor.isReportable ($0)) }
   }
-  func assertMonitorReportFalse<Value> (monitor: Monitor<Value>, values: Value...) {
+  func assertMonitorReportFalse<Value> (_ monitor: Monitor<Value>, values: Value...) {
     values.forEach { XCTAssertFalse (monitor.isReportable ($0)) }
   }
   
@@ -61,11 +61,11 @@ class MonitorTest: XCTestCase {
     let monitorPersistentInt = PersistenceDomainMonitor<Int>(limit: 2, domain: SetDomain<Int>(set: Set<Int>(arrayLiteral: 0, 1, 2)))
     
     assertMonitorReportFalse(monitorPersistentInt, values: 0, 1, 2)
-    monitorPersistentInt.update(0)    ; 1
+    monitorPersistentInt.update(0) //   ; 1
     assertMonitorReportFalse(monitorPersistentInt, values: 0, 1, 2)
-    monitorPersistentInt.update(1)    ; 2
+    monitorPersistentInt.update(1) //   ; 2
     assertMonitorReportTrue(monitorPersistentInt, values: 0, 1, 2)
-    monitorPersistentInt.update(1)    ; 3
+    monitorPersistentInt.update(1) //   ; 3
     assertMonitorReportTrue(monitorPersistentInt, values: 0, 1, 2)
   }
   
@@ -102,7 +102,7 @@ class MonitorTest: XCTestCase {
   }
   
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

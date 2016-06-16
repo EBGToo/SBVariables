@@ -24,7 +24,7 @@ public class Monitor<Value> {
   ///
   /// - argument value: The updated value
   ///
-  public func update (value: Value) {
+  public func update (_ value: Value) {
     if !isMasked && isReportable(value) {
       report(value)
     }
@@ -35,7 +35,7 @@ public class Monitor<Value> {
   ///
   /// - argument value: The value to report.
   ///
-  public func report (value: Value) {
+  public func report (_ value: Value) {
   }
 
   ///
@@ -45,7 +45,7 @@ public class Monitor<Value> {
   ///
   /// - returns: `true` if reportable; `false` otherwise.
   ///
-  public func isReportable (value: Value) -> Bool {
+  public func isReportable (_ value: Value) -> Bool {
     return true
   }
 
@@ -94,7 +94,7 @@ public class OnChangeMonitor<Value> : Monitor<Value> {
   ///
   /// - returns: `true` is changed; `false` otherwise.
   ///
-  public override func isReportable(value: Value) -> Bool {
+  public override func isReportable(_ value: Value) -> Bool {
     return nil == lastValue || changed (value, lastValue!)
   }
 
@@ -104,7 +104,7 @@ public class OnChangeMonitor<Value> : Monitor<Value> {
   ///
   /// - argument value: The updated value
   ///
-  public override func update(value: Value) {
+  public override func update(_ value: Value) {
     super.update(value)
     lastValue = value
   }
@@ -143,7 +143,7 @@ public class DomainMonitor<Value> : Monitor<Value> {
   ///
   /// - returns: `true` is `value` is out of range; `false` otherwise.
   ///
-  public override func isReportable(value: Value) -> Bool {
+  public override func isReportable(_ value: Value) -> Bool {
     return domain.contains (value)
   }
 
@@ -169,14 +169,14 @@ public class PersistenceDomainMonitor<Value> : DomainMonitor<Value> {
   /// The specified persistence limit 
   public let persistenceLimit : Int
 
-  public override func update (value: Value) {
+  public override func update (_ value: Value) {
     if !domain.contains(value) { persistenceCount = 0 }
     else { persistenceCount += 1 }
 
     super.update(value)
   }
 
-  public override func isReportable(value: Value) -> Bool {
+  public override func isReportable(_ value: Value) -> Bool {
     return persistenceCount >= persistenceLimit
   }
 
@@ -214,17 +214,17 @@ public protocol Monitorable {
   ///
   /// - returns: `true` if contained; `false` otherwise
   ///
-  func hasMonitor(monitor:Monitor<Value>) -> Bool
+  func hasMonitor(_ monitor:Monitor<Value>) -> Bool
   
   ///
   /// Add monitor
   ///
-  func addMonitor(monitor:Monitor<Value>)
+  func addMonitor(_ monitor:Monitor<Value>)
   
   ///
   /// Remove monitor
   ///
-  func remMonitor(monitor:Monitor<Value>)
+  func remMonitor(_ monitor:Monitor<Value>)
 
   ///
   /// Check if `monitor` is accepted
@@ -233,12 +233,12 @@ public protocol Monitorable {
   ///
   /// - returns: `true` if accepted; `false` otherwise.
   ///
-  func acceptsMonitor(monitor:Monitor<Value>) -> Bool
+  func acceptsMonitor(_ monitor:Monitor<Value>) -> Bool
 
   ///
   /// Update the monitors for `value`
   ///
-  func updateMonitorsFor(value: Value)
+  func updateMonitorsFor(_ value: Value)
 }
 
 // MARK: Monitored Object
@@ -251,27 +251,27 @@ public class MonitoredObject<Value> : Monitorable {
   /// Array of current monitors 
   var monitors = Array<Monitor<Value>>()
   
-  public func hasMonitor(m: Monitor<Value>) -> Bool {
+  public func hasMonitor(_ m: Monitor<Value>) -> Bool {
     return monitors.contains(m)
   }
   
-  public func addMonitor(m: Monitor<Value>) {
+  public func addMonitor(_ m: Monitor<Value>) {
     if acceptsMonitor(m) {
       monitors.append(m)
     }
   }
   
-  public func remMonitor(m: Monitor<Value>) {
-    if let index = monitors.indexOf(m) {
-      monitors.removeAtIndex(index)
+  public func remMonitor(_ m: Monitor<Value>) {
+    if let index = monitors.index(of: m) {
+      monitors.remove(at: index)
     }
   }
   
-  public func acceptsMonitor(m: Monitor<Value>) -> Bool {
+  public func acceptsMonitor(_ m: Monitor<Value>) -> Bool {
     return true
   }
   
-  public func updateMonitorsFor(value: Value) {
+  public func updateMonitorsFor(_ value: Value) {
     for monitor in monitors {
       monitor.update(value)
     }

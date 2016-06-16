@@ -49,11 +49,11 @@ class DomainTest: XCTestCase {
   }
 
 
-  func assertDomainValuesTrue<Value> (domain: Domain<Value>, values: Value...) {
+  func assertDomainValuesTrue<Value> (_ domain: Domain<Value>, values: Value...) {
     values.forEach { XCTAssertTrue(domain.contains($0)) }
   }
   
-  func assertDomainValuesFalse<Value> (domain: Domain<Value>, values: Value...) {
+  func assertDomainValuesFalse<Value> (_ domain: Domain<Value>, values: Value...) {
     values.forEach { XCTAssertFalse(domain.contains($0)) }
   }
   
@@ -146,19 +146,24 @@ class DomainTest: XCTestCase {
   // MARK: Test Compound Domain
   
   func testDomainCompound () {
-    let compoundIntOr = CompoundDomain<Int>(logic: .Or, domains: SetDomain<Int>(set: [0, 1, 2]), SetDomain<Int>(set: [3,4]))
+    
+    let compoundIntOr = CompoundDomain<Int>(logic: .or,
+                                            domains: SetDomain<Int>(values: 0, 1, 2),
+                                                     SetDomain<Int>(values: 3, 4))
     
     assertDomainValuesTrue  (compoundIntOr, values: 0, 1, 2, 3, 4)
     assertDomainValuesFalse (compoundIntOr, values: 5, 6, 7)
 
-    let compoundIntAnd = CompoundDomain<Int>(logic: .And, domains: SetDomain<Int>(set: [0, 1, 2, 3]), SetDomain<Int>(set: [2, 3, 4, 5]))
+    let compoundIntAnd = CompoundDomain<Int>(logic: .and,
+                                             domains: SetDomain<Int>(values: 0, 1, 2, 3),
+                                                      SetDomain<Int>(values: 2, 3, 4, 5))
     
     assertDomainValuesTrue  (compoundIntAnd, values: 2, 3)
     assertDomainValuesFalse (compoundIntAnd, values: -1, 0, 1, 4, 5)
 }
   
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

@@ -18,11 +18,11 @@ class RangeTest: XCTestCase {
     super.tearDown()
   }
   
-  func assertRangeValuesTrue<Value> (range: SBVariables.Range<Value>, values: Value...) {
+  func assertRangeValuesTrue<Value> (_ range: SBVariables.Range<Value>, values: Value...) {
     values.forEach { XCTAssertTrue(range.contains($0)) }
   }
   
-  func assertRangeValuesFalse<Value> (range: SBVariables.Range<Value>, values: Value...) {
+  func assertRangeValuesFalse<Value> (_ range: SBVariables.Range<Value>, values: Value...) {
     values.forEach { XCTAssertFalse(range.contains($0)) }
   }
   
@@ -99,7 +99,7 @@ class RangeTest: XCTestCase {
   
 
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

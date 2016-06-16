@@ -91,7 +91,7 @@ public class Variable<Value> : MonitoredObject<Value>, Nameable {
   /// - parameter value:
   /// - parameter time:
   ///
-  public func assign (value: Value, time:Quantity<Time>) {
+  public func assign (_ value: Value, time:Quantity<Time>) {
     guard domain.contains(value) && delegate.canAssign(self, value) else {
       delegate.didNotAssign(self, value)
       return
@@ -108,7 +108,7 @@ public class Variable<Value> : MonitoredObject<Value>, Nameable {
 /// A QuantityVariable is a Variable with value of type Quantity<D> where D is an Dimension (such
 /// as Length, Time or Mass).
 ///
-public class QuantityVariable<D:Dimension> : Variable<Quantity<D>> {
+public class QuantityVariable<D:SBUnits.Dimension> : Variable<Quantity<D>> {
   public override init? (name: String, time:Quantity<Time>, value: Quantity<D>, domain: Domain<Quantity<D>>,
     history : History<Quantity<D>>? = nil,
     delegate : VariableDelegate<Quantity<D>> = VariableDelegate<Quantity<D>>()) {

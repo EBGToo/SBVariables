@@ -8,7 +8,9 @@
 
 import XCTest
 import SBUnits
+
 @testable import SBVariables
+
 
 class HistoryTest: XCTestCase {
   
@@ -34,7 +36,7 @@ class HistoryTest: XCTestCase {
   }
   
   func testPerformanceExample() {
-    self.measureBlock {
+    self.measure {
     }
   }
 }

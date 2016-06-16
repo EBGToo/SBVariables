@@ -22,7 +22,7 @@ public class Range<Value: Comparable> {
   ///
   /// - returns `true` if `value` is contained; otherwise `false`
   ///
-  func contains (value: Value) -> Bool {
+  func contains (_ value: Value) -> Bool {
     return false
   }
   
@@ -33,8 +33,8 @@ public class Range<Value: Comparable> {
   ///
   /// - returns: The intersection of `self` and `that`
   ///
-  func intersection (that: Range<Value>) -> Range<Value> {
-    return CompoundRange (logic: .All, self, that)
+  func intersection (_ that: Range<Value>) -> Range<Value> {
+    return CompoundRange (logic: .all, self, that)
   }
   
   ///
@@ -44,8 +44,8 @@ public class Range<Value: Comparable> {
   ///
   /// - returns: The union of `self` and `that`
   ///
-  func union (that: Range<Value>) -> Range<Value> {
-    return CompoundRange (logic: .Any, self, that)
+  func union (_ that: Range<Value>) -> Range<Value> {
+    return CompoundRange (logic: .any, self, that)
   }
   
   ///
@@ -64,7 +64,7 @@ public class Range<Value: Comparable> {
   ///
   /// - returns: .None if the shadow cannot be determined; `true` if shadows; otherwise `false.
   ///
-  func shadows (that: Range<Value>) -> Bool? {
+  func shadows (_ that: Range<Value>) -> Bool? {
     return nil
   }
 }
@@ -134,7 +134,7 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
   ///
   /// - parameter value:
   ///
-  public override func contains (value: Value) -> Bool {
+  public override func contains (_ value: Value) -> Bool {
     return
       (nil == minimum ||
         (incMinimum ? minimum! <= value  : minimum! < value  )) &&
@@ -148,7 +148,7 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
   /// - parameter that:
   /// - returns: the intersection
   ///
-  public override func intersection (that: Range<Value>) -> Range<Value> {
+  public override func intersection (_ that: Range<Value>) -> Range<Value> {
     if let that = that as? ContiguousRange<Value> {
       let imin = ContiguousRange.upperBound (minimum, that.minimum)
       let imax = ContiguousRange.lowerBound (maximum, that.maximum)
@@ -173,18 +173,18 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
   ///
   public override var complement : Range<Value> {
     switch (minimum, maximum) {
-    case let (.Some(min), .Some(max)):
-      return CompoundRange<Value>(logic: .All,
+    case let (.some(min), .some(max)):
+      return CompoundRange<Value>(logic: .all,
         arrayOfRanges: [ContiguousRange<Value>(minimum: nil, maximum: min, incMaximum: !incMinimum),
                         ContiguousRange<Value>(minimum: max, incMinimum: !incMaximum, maximum: nil)])
       
-    case let (.Some(min), .None):
+    case let (.some(min), .none):
       return ContiguousRange<Value>(minimum: nil, maximum: min, incMaximum: !incMinimum)
       
-    case let (.None, .Some(max)):
+    case let (.none, .some(max)):
       return ContiguousRange<Value>(minimum: max, incMinimum: !incMaximum, maximum: nil)
       
-    case (.None, .None):
+    case (.none, .none):
       return super.complement // Always false
     }
   }
@@ -195,7 +195,7 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
   /// - parameter that:
   /// - returns: 
   ///
-  public override func shadows (that: Range<Value>) -> Bool? {
+  public override func shadows (_ that: Range<Value>) -> Bool? {
     guard let that = that as? ContiguousRange<Value> else { return nil }
     
     return (minimum < that.minimum || (incMinimum && minimum == that.minimum))
@@ -203,17 +203,17 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
   }
   
   /// Return the lower bound from two optional values.  If either value is nil, the result is nil.
-  internal static func lowerBound (a: Value?, _ b: Value?) -> Value? {
+  internal static func lowerBound (_ a: Value?, _ b: Value?) -> Value? {
     switch (a, b) {
-    case let (.Some(a), .Some(b)): return min (a, b)
+    case let (.some(a), .some(b)): return min (a, b)
     default: return nil
     }
   }
   
   /// Return the upper bound from two optional values.  If either value is nil, the result is nil.
-  internal static func upperBound (a: Value?, _ b: Value?) -> Value? {
+  internal static func upperBound (_ a: Value?, _ b: Value?) -> Value? {
     switch (a, b) {
-    case let (.Some(a), .Some(b)): return max (a, b)
+    case let (.some(a), .some(b)): return max (a, b)
     default: return nil
     }
   }
@@ -229,7 +229,7 @@ public final class ComplementRange<Value:Comparable> : Range<Value> {
   /// The base range
   let range : Range<Value>
   
-  public override func contains(value: Value) -> Bool {
+  public override func contains(_ value: Value) -> Bool {
     return !range.contains(value)
   }
   
@@ -253,8 +253,8 @@ public final class ComplementRange<Value:Comparable> : Range<Value> {
 
 /// A CompoundRangeLogic enumeration defines .All and .Any for CompoundRange.
 public enum CompoundRangeLogic {
-  case All
-  case Any
+  case all
+  case any
 }
 
 ///
@@ -264,10 +264,10 @@ public final class CompoundRange<Value:Comparable> : Range<Value> {
   let ranges : [Range<Value>]
   let logic  : CompoundRangeLogic
   
-  public override func contains(value: Value) -> Bool {
+  public override func contains(_ value: Value) -> Bool {
     switch logic {
-    case .All: return ranges.all { $0.contains(value) }
-    case .Any: return ranges.any { $0.contains(value) }
+    case .all: return ranges.all { $0.contains(value) }
+    case .any: return ranges.any { $0.contains(value) }
     }
   }
   
