@@ -115,7 +115,7 @@ public class OnChangeMonitor<Value> : Monitor<Value> {
   /// - argument value: An optional as `lastValue`
   /// - argument changed: A function to determine a changed value.
   ///
-  public init (value: Value? = nil, changed: (Value, Value) -> Bool) {
+  public init (value: Value? = nil, changed: @escaping (Value, Value) -> Bool) {
     self.lastValue = value
     self.changed = changed
   }

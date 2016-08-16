@@ -15,10 +15,32 @@ public protocol Nameable {
   var name : String { get }
 }
 
+/// 
+/// An `AsNameable` is a `Nameable` for an arbitrary typed `Item`
+///
+public struct AsNameable<Item> : Nameable {
+  
+  /// The `name`
+  public var name : String
+  
+  /// The `item`
+  public var item : Item
+
+  /// Initialize an insntance
+  ///
+  /// - parameter name: the name
+  /// - parameter item: the item
+  ///
+  public init (item: Item, name: String) {
+    self.name = name
+    self.item = item
+  }
+}
+
 ///
 /// A concreate Nameable class 
 ///
-public class Named : Nameable {
+open class Named : Nameable {
   
   /// The `name` 
   public let name : String
@@ -26,7 +48,7 @@ public class Named : Nameable {
   /// Initialize an instance
   ///
   /// - parameter name: The name
-   ///
+  ///
   public init (name: String) {
     self.name = name
   }

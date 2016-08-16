@@ -15,9 +15,9 @@ public struct VariableDelegate<Value> {
   public var didNotAssign = { (variable: Variable<Value>, value:Value) -> Void in return }
     
   public init (
-    canAssign    : ((variable: Variable<Value>, value:Value) -> Bool)?,
-    didAssign    : ((variable: Variable<Value>, value:Value) -> Void)? = nil,
-    didNotAssign : ((variable: Variable<Value>, value:Value) -> Void)? = nil)
+    canAssign    : ((_ variable: Variable<Value>, _ value:Value) -> Bool)?,
+    didAssign    : ((_ variable: Variable<Value>, _ value:Value) -> Void)? = nil,
+    didNotAssign : ((_ variable: Variable<Value>, _ value:Value) -> Void)? = nil)
   {
     self.canAssign    = canAssign    ?? self.canAssign
     self.didAssign    = didAssign    ?? self.didAssign

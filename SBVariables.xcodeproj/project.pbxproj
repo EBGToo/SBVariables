@@ -43,7 +43,7 @@
 		3C28956C1BFFB7BF00C85BD2 /* SBVariables.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SBVariables.h; sourceTree = "<group>"; };
 		3C28956E1BFFB7BF00C85BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3C2895731BFFB7BF00C85BD2 /* SBVariablesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SBVariablesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3C28957A1BFFB7BF00C85BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C28957A1BFFB7BF00C85BD2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		3C2895C91BFFB9D900C85BD2 /* Domain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Domain.swift; sourceTree = "<group>"; };
 		3C2895CA1BFFB9D900C85BD2 /* History.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		3C2895CB1BFFB9D900C85BD2 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };

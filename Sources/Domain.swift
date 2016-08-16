@@ -56,7 +56,7 @@ public final class SingletonDomain<Value> : Domain<Value> {
     return test (value, self.value)
   }
   
-  public init (value: Value, test: (Value, Value) -> Bool) {
+  public init (value: Value, test: @escaping (Value, Value) -> Bool) {
     self.value = value
     self.test  = test
   }
@@ -87,7 +87,7 @@ public final class EnumeratedDomain<Value> : Domain<Value> {
     return values.contains { test(value, $0) }
   }
   
-  public init (values: [Value], test: (Value, Value) -> Bool) {
+  public init (values: [Value], test: @escaping (Value, Value) -> Bool) {
     self.values = values
     self.test  = test
   }

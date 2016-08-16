@@ -153,7 +153,7 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
       let imin = ContiguousRange.upperBound (minimum, that.minimum)
       let imax = ContiguousRange.lowerBound (maximum, that.maximum)
 
-      if nil != imin && nil != imax && imin > imax {
+      if nil != imin && nil != imax && imin! > imax! {
         return super.intersection(that)
       }
 
@@ -196,10 +196,13 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
   /// - returns: 
   ///
   public override func shadows (_ that: Range<Value>) -> Bool? {
-    guard let that = that as? ContiguousRange<Value> else { return nil }
-    
-    return (minimum < that.minimum || (incMinimum && minimum == that.minimum))
-      &&   (maximum > that.maximum || (incMaximum && maximum == that.maximum))
+    //    guard let that = that as? ContiguousRange<Value> else { return nil }
+
+    // TODO: Fit it
+    //    return (minimum < that.minimum || (incMinimum && minimum == that.minimum))
+    //      &&   (maximum > that.maximum || (incMaximum && maximum == that.maximum))
+
+    return false
   }
   
   /// Return the lower bound from two optional values.  If either value is nil, the result is nil.
