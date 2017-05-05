@@ -196,15 +196,30 @@ public final class ContiguousRange <Value: Comparable> : Range<Value> {
   /// - returns: 
   ///
   public override func shadows (_ that: Range<Value>) -> Bool? {
-    //    guard let that = that as? ContiguousRange<Value> else { return nil }
+    guard let that = that as? ContiguousRange<Value> else { return nil }
 
-    // TODO: Fit it
     //    return (minimum < that.minimum || (incMinimum && minimum == that.minimum))
     //      &&   (maximum > that.maximum || (incMaximum && maximum == that.maximum))
 
-    return false
+    return ContiguousRange.minBelow (minimum, that.minimum, incMinimum)
+        && ContiguousRange.maxAbove (maximum, that.maximum, incMaximum)
   }
-  
+
+  internal static func minBelow (_ a: Value?, _ b: Value?, _ inc: Bool) -> Bool {
+    if a == nil { return true }  // a = -infinity is always below
+    if b == nil { return false } // b = -infinity is always above a /= -infinity
+    return a! < b! || (inc && a! == b!)
+  }
+
+  internal static func maxAbove (_ a: Value?, _ b: Value?, _ inc: Bool) -> Bool {
+    if a == nil { return true }  // a = +infinity is always above
+    if b == nil { return false } // b = +infinity is always below a /= +infinity
+    return a! > b! || (inc && a! == b!)
+  }
+
+
+
+
   /// Return the lower bound from two optional values.  If either value is nil, the result is nil.
   internal static func lowerBound (_ a: Value?, _ b: Value?) -> Value? {
     switch (a, b) {

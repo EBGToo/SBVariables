@@ -15,7 +15,7 @@ class OnChangeReportSeriesMonitor<Value:Equatable> : OnChangeMonitor<Value> {
     values.append(value)
   }
   
-  init (value: Value, changed: ((Value, Value) -> Bool)) {
+  init (value: Value, changed: @escaping ((Value, Value) -> Bool)) {
     super.init(value: value, changed: changed)
     values.append(value)
   }

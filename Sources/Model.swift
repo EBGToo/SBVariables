@@ -238,7 +238,7 @@ public struct FunctionalModel<I, O> : Model {
     return reverse?(output)
   }
 
-  init (forward: @escaping (I) -> O, reverse:(@escaping (O) -> I)? = nil) {
+  init (forward: @escaping (I) -> O, reverse: ((O) -> I)? = nil) {
     self.forward = forward
     self.reverse = reverse
   }
